@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style type="text/css">
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            li{
+                list-style: none;
+            }
+            /* 设置轮播图图片的宽高 */
+            img{
+                width: 670px;
+                height: 333px;
+            }
+            #box{
+                width: 690px;
+                height: 333px;
+                margin: 100px auto;
+                padding: 10px 0px;
+                border: 1px solid black;
+                position: relative;
+               overflow: hidden;
+            }
+            #imgList{
+            height: 333px;
+            position: absolute;
+            }
+            #imgList li{
+                float: left;
+                margin: 0px 10px;
+            }
+            #imgList::after{
+                content: "";
+                display: block;
+                clear: both;
+            }
+            #nav{
+                position: absolute;
+                bottom: 20px;
+                width: 200px;
+                text-align: center;
+                margin-left: 245px;
+            }
+            #nav a{
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                background-color: #000000;
+                border-radius: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <ul id="imgList">
+                <li><img src="./a.jpg" alt=""></li>
+                <li><img src="./b.jpg" alt=""></li>
+                <li><img src="./c.jpg" alt=""></li>
+                <li><img src="./d.jpg" alt=""></li>
+            </ul>
+            <div id="nav">
+                <a href="#"></a>
+                <a href="#"></a>
+                <a href="#"></a>
+                <a href="#"></a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            window.onload=function(){
+                // 动态设置ul的宽
+                var imgList=document.getElementById("imgList");
+                var imgArr=document.getElementsByTagName("img");
+                imgList.style.width=690*imgArr.length+"px";
+                // index 代表图片和按钮的索引  设置当前照片和按钮
+                var index=0;
+                var allA=document.getElementsByTagName("a");
+                allA[index].style.backgroundColor="white";
+                // 点击按钮跳到对应的index对应的按钮变色
+                for(var i=0;i<allA.length;i++){
+                    allA[i].xb=i;
+                    allA[i].onclick=function(){
+                        index=this.xb;
+                        imgList.style.left=(-690*index)+"px";
+                        setA();
+                    }
+                }
+                
+                // 设置方案颜色a
+                function setA(){
+                    if(index>=imgArr.length){
+                        index=0;
+                        imgList.style.left=0;
+                   }
+                   for(var i=0;i<allA.length;i++){
+                       allA[i].style.backgroundColor="black";
+                   }                
+                   allA[index].style.backgroundColor="white";
+                }
+                
+                autoChange();
+                function autoChange(){
+                    // 开始 定时器
+                    setInterval(function(){
+                        index++;
+                        imgList.style.left=(-690*index)+"px";
+                        setA();
+                    },3000)
+                }
+            }
+        </script>
+    </body>
+</html>
